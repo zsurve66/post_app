@@ -43,27 +43,37 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _showInfoDialog(
       String title, String message, IconData icon, Color iconColor) async {
     return showDialog(
+      barrierDismissible: false,
       context: context,
       builder: (_) => AlertDialog(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        alignment: Alignment.center,
+        title: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, color: iconColor),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Text(
-                title,
-                style: const TextStyle(fontWeight: FontWeight.bold),
+            Icon(icon, color: iconColor, size: 48),
+            const SizedBox(height: 12),
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
               ),
             ),
           ],
         ),
-        content: Text(message),
+        content: Text(
+          message,
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 16),
+        ),
+        actionsAlignment: MainAxisAlignment.center,
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
             child: const Text('OK'),
-          )
+          ),
         ],
       ),
     );
@@ -321,12 +331,7 @@ class _HomeScreenState extends State<HomeScreen> {
               context,
               MaterialPageRoute(builder: (context) => const NewPostScreen()),
             );
-            // if (result == true) _refreshPosts();
-            if (result is PostModel) {
-              setState(() {
-                postsFuture = postsFuture.then((posts) => [result, ...posts]);
-              });
-            }
+            if (result == true) _refreshPosts();
           },
           icon: const Icon(Icons.add, color: Colors.white),
           label: const Text('New Post',

@@ -37,8 +37,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
         message: 'Your post was successfully created.',
       );
 
-      // if (mounted) Navigator.pop(context, true);
-      if (mounted) Navigator.pop(context, post);
+      if (mounted) Navigator.pop(context, true);
     } catch (e) {
       if (!mounted) return;
 
@@ -107,10 +106,25 @@ class _NewPostScreenState extends State<NewPostScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Create Post',
-            style: TextStyle(fontWeight: FontWeight.bold)),
         backgroundColor: Colors.indigo,
         centerTitle: true,
+        elevation: 4,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(14)),
+        ),
+        title: const Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'Create Post',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                color: Colors.white,
+              ),
+            ),
+          ],
+        ),
       ),
       body: Stack(
         children: [
